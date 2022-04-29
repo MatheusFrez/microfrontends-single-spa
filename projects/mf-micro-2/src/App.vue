@@ -1,15 +1,16 @@
 <template>
   <div id="app">
     <header>
-      <h1>Micro 1</h1>
+      <h1>Micro 2</h1>
     </header>
     <div id="nav">
       <router-link to="/teste1">Micro 1</router-link> |
       <router-link to="/teste2">Micro 2</router-link>
-    </div>
-    <div class="dogs-list">
-      <div v-for="dogUrl in dogsOnStorage" :key="dogUrl">
-        <img :src="dogUrl" alt="dog-image" width="300" height="300" class="dog-item" />
+      <div class="button">
+        <button @click="triggerEvent">Trigger event</button>
+      </div>
+      <div class="button">
+        <button @click="addRandomDogToLocalStorage">Add dog on storage</button>
       </div>
     </div>
     <router-view/>
@@ -19,18 +20,25 @@
 <script lang="ts">
 import Vue from 'vue'
 export default Vue.extend({
-  mounted() {
-    const channel = new BroadcastChannel('example-channel');
+  methods: {
+    triggerEvent() {
+      const channel = new BroadcastChannel('example-channel');
 
-    channel.addEventListener('message', event => {
-      console.log('MENSAGEM QUE CHEGOU AQUI DO MFE 2', event.data)
-    });
-  },
-  computed: {
-    dogsOnStorage() {
+      channel.postMessage({
+        test: 'testing....',
+        information2: 'lorem impsum....'
+      });
+    },
+    async addRandomDogToLocalStorage() {
+      const dogUrl = (await (await fetch('https://dog.ceo/api/breeds/image/random')).json()).message;
+
       const dogsStorage = localStorage.getItem('dogs-mfe')
       const actualDogsOnStorage = dogsStorage && JSON.parse(dogsStorage) || [];
-      return actualDogsOnStorage;
+
+      let dogsOnStorage = actualDogsOnStorage || [];
+      dogsOnStorage.push(dogUrl);
+
+      localStorage.setItem('dogs-mfe', JSON.stringify(dogsOnStorage));
     }
   }
 })
@@ -58,14 +66,7 @@ export default Vue.extend({
   color: #42b983;
 }
 
-.dogs-list {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0 10% 0 10%;
+.button {
+  margin-top: 25px;
 }
-
-.dog-item {
-  margin: 10px;
-}
-
 </style>
