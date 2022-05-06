@@ -1,20 +1,29 @@
 import { registerApplication, start } from "single-spa";
-import {
-  constructApplications,
-  constructRoutes,
-  constructLayoutEngine,
-} from "single-spa-layout";
-import microfrontendLayout from "./microfrontend-layout.html";
 
-const routes = constructRoutes(microfrontendLayout);
-const applications = constructApplications({
-  routes,
-  loadApp({ name }) {
-    return System.import(name);
+registerApplication({
+  name: "@mf/mf-micro-3-login",
+  app: () => System.import("@mf/mf-micro-3-login"),
+  activeWhen: ()=> true,
+  customProps: (name, location) => {
+    return { authToken: 'd83jD63UdZ6RS6f70D0' };
   },
 });
-const layoutEngine = constructLayoutEngine({ routes, applications });
 
-applications.forEach(registerApplication);
-layoutEngine.activate();
-start();
+registerApplication({
+  name: "@mf/mf-micro-1",
+  app: () => System.import("@mf/mf-micro-1"),
+  activeWhen: ["/teste1"],
+  customProps: (name, location) => {
+    return { authToken: 'd83jD63UdZ6RS6f70D0' };
+  },
+});
+
+registerApplication({ 
+  name: "@mf/mf-micro-2",
+  app: () => System.import("@mf/mf-micro-2"),
+  activeWhen: ["/teste2"]
+});
+
+start({
+  urlRerouteOnly: true,
+});
