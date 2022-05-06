@@ -23,9 +23,9 @@ registerApplication({
 registerApplication({ 
   name: "@mf/mf-micro-2",
   app: () => System.import("@mf/mf-micro-2"),
-  activeWhen: ["/teste2"],
+  activeWhen: ["/teste2", "/teste2/about"],
   customProps: (name, location) => {
-    return { authToken: acessToken }; 
+    return { authToken: acessToken };
   },
 });
 

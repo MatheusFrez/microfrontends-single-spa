@@ -1,11 +1,10 @@
 <template>
   <div id="app">
     <header>
-      <h1>LOGIN AQUI</h1> 
+      <h1>LOGIN AQUI</h1>  
     </header>
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>  
+      <router-link to="/about">About of MFE 3</router-link>  
     </div>
     <router-view/> 
   </div>

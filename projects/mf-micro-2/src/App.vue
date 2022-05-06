@@ -4,8 +4,9 @@
       <h1>Micro 2</h1>
     </header>
     <div id="nav">
-      <router-link to="/teste1">Micro 1</router-link> |
+      <router-link to="/teste1">Micro 1</router-link>  
       <router-link to="/teste2">Micro 2</router-link>
+      <router-link to="/teste2/about">About micro 2</router-link>
       <div class="button">
         <button @click="triggerEvent">Trigger event</button>
       </div>

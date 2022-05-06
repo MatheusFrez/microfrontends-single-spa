@@ -4,8 +4,12 @@
       <h1>Micro 1</h1>
     </header>
     <div id="nav">
-      <router-link to="/teste1">Micro 1</router-link> |
+      <router-link to="/teste1">Micro 1</router-link> 
       <router-link to="/teste2">Micro 2</router-link>
+      <router-link to="/about">about of mfe 1</router-link>
+      <div class="button">
+        <button @click="testChangeRouter">Micro to micro 2 with vue router</button>
+      </div>
     </div>
     <div class="dogs-list">
       <div v-for="dogUrl in dogsOnStorage" :key="dogUrl">
@@ -31,6 +35,11 @@ export default Vue.extend({
       const dogsStorage = localStorage.getItem('dogs-mfe')
       const actualDogsOnStorage = dogsStorage && JSON.parse(dogsStorage) || [];
       return actualDogsOnStorage;
+    }
+  },
+  methods: {
+    testChangeRouter() {
+      this.$router.replace('/teste2')
     }
   }
 })
