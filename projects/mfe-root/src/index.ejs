@@ -81,7 +81,17 @@
   </noscript>
   <script>
     System.import('@mf/root-config');
+
+    window.addEventListener(
+      'single-spa:before-routing-event',
+      ({ detail: { oldUrl, newUrl, cancelNavigation } }) => {
+        if (false) {
+          cancelNavigation();
+        }
+        // IS POSSIBLE TO BLOCK CHANGING OFF ROUTER WITH CUSTOM CONDITIONS...
+      },
+    );
   </script>
   <import-map-overrides-full show-when-local-storage="devtools" dev-libs></import-map-overrides-full>
 </body>
-</html>
+</html>  
